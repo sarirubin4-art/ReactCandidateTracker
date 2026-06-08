@@ -20,6 +20,12 @@ namespace ReactCandidateTracker.Data
         public Status Status { get; set; }
     }
 
+    public class CountsObj
+    {
+        public int Pending { get; set; }
+        public int Confirmed { get; set; }
+        public int Refused { get; set; }
+    }
     public enum Status
     {
         Pending,
@@ -42,12 +48,19 @@ namespace ReactCandidateTracker.Data
             return ctx.Candidates.Where(c => c.Status == status).ToList();
         }
 
+        public Candidate GetCandidate(int id)
+        {
+            using var ctx = new CandidateDataContext(_connectionString);
+            return ctx.Candidates.FirstOrDefault(c => c.Id == id);
+        }
+
         public void AddCandidate(Candidate c)
         {
            using var ctx = new CandidateDataContext(_connectionString);
             ctx.Candidates.Add(c);
             ctx.SaveChanges();
         }
+
         public void ChangeStatus(int candidateId,Status status)
         {
             using var ctx = new CandidateDataContext(_connectionString);
@@ -58,13 +71,13 @@ namespace ReactCandidateTracker.Data
             //ctx.SaveChanges();
         }
 
-        public int[] GetStatusCounts()
+        public CountsObj GetStatusCounts()
         {
             using var ctx = new CandidateDataContext(_connectionString);
-            int pendingCount = ctx.Candidates.Where(c => c.Status == Status.Pending).Count();
-            int confirmedCount = ctx.Candidates.Where(c => c.Status == Status.Confirmed).Count();
-            int refusedCount = ctx.Candidates.Where(c => c.Status == Status.Refused).Count();
-            int[] counts= [pendingCount, confirmedCount, refusedCount];
+            CountsObj counts = new CountsObj();
+            counts.Pending = ctx.Candidates.Where(c => c.Status == Status.Pending).Count();
+            counts.Confirmed = ctx.Candidates.Where(c => c.Status == Status.Confirmed).Count();
+            counts.Refused = ctx.Candidates.Where(c => c.Status == Status.Refused).Count();
             return counts;
         }
     }

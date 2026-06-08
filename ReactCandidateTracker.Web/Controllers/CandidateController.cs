@@ -21,6 +21,13 @@ namespace ReactCandidateTracker.Web.Controllers
             return repo.GetByStatus(status);
         }
 
+        [HttpGet("getcandidate")]
+        public Candidate GetCandidate(int id)
+        {
+            var repo = new CandidateRepository(_connectionString);
+            return repo.GetCandidate(id);
+        }
+
         [HttpPost("addcandidate")]
         public void AddCandidate(Candidate candidate)
         {
@@ -40,7 +47,7 @@ namespace ReactCandidateTracker.Web.Controllers
         }
 
         [HttpGet("getstatuscounts")]
-        public int[] GetStatusCounts()
+        public CountsObj GetStatusCounts()
         {
             var repo = new CandidateRepository(_connectionString);
             var counts = repo.GetStatusCounts();

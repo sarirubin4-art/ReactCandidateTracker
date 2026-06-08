@@ -17,11 +17,11 @@ const Layout = ({ children }) => {
                         </button>
                         <div className="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                             <ul className="navbar-nav flex-grow-1">
-                                <li className="nav-item"><Link to="/" className='nav-link text-light'>Home</Link></li>
-                                <li className="nav-item"><Link to="/" className='nav-link text-light'>Add Candidate</Link></li>
-                                <li className="nav-item"><Link to="/" className='nav-link text-light'>Pending ({counts[0]})</Link></li>
-                                <li className="nav-item"><Link to="/" className='nav-link text-light'>Confirmed ({counts[1]})</Link></li>
-                                <li className="nav-item"><Link to="/" className='nav-link text-light'>Refused ({counts[2]})</Link></li>
+                                <li className="nav-item"><Link to="/" className='nav-link text-light btn btn-dark'>Home</Link></li>
+                                <li className="nav-item"><Link to="/add" className='nav-link text-light btn btn-dark'>Add Candidate</Link></li>
+                                <li className="nav-item"><Link to="/pending" className='nav-link text-light btn btn-dark'>Pending ({counts.pending})</Link></li>
+                                <li className="nav-item"><Link to="/confirmed" className='nav-link text-light btn btn-dark'>Confirmed ({counts.confirmed})</Link></li>
+                                <li className="nav-item"><Link to="/refused" className='nav-link text-light btn btn-dark'>Refused ({counts.refused})</Link></li>
                             </ul>
                         </div>
                     </div>
